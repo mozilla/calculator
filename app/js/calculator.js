@@ -8,6 +8,7 @@ var Calculator = {
   backSpaceTimeout: null,
   errorTimeout: null,
   toClear: false,
+  significantDigits: 9,
 
   operators: ['÷', '×', '-', '+', '*', '/'],
 
@@ -231,7 +232,8 @@ var Calculator = {
         stack.push(result);
       }
     }, this);
-    var finalResult = stack.pop();
+    var finalResult =
+      parseFloat(stack.pop().toPrecision(this.significantDigits));
     if (isNaN(finalResult))
       throw ({ type: 'error', msg: 'Value is ' + finalResult });
     return finalResult;
@@ -309,14 +311,12 @@ Calculator.test = function() {
     ['1e+30*10', 1e+31],
     ['1e+30/100', 1e+28],
     ['10/1000000000000000000000000', 1e-23],
-    ['10/-1000000000000000000000000', -1e-23]
+    ['10/-1000000000000000000000000', -1e-23],
+    ['1.25-1.2', 0.05],
   ];
 
   var passed = formulas.every(run);
-
-  if (passed) {
-    console.log('Tests Passed!');
-  }
+  console.log('Tests ' + (passed ? 'Passed!' : 'Failed!'));
   return passed;
 };
 
