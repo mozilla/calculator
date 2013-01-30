@@ -98,3 +98,6 @@ input:not(.small) {
   background: none repeat scroll 0 0 rgba(255, 0, 0, 0.3);
 }
 
+.active {
+  background-image: url("images/button-active-small.png");
+}
