@@ -9,6 +9,7 @@ var Calculator = {
   currentInput: '',
   operationToBeApplied: '',
   negateCurrentInput: false,
+  inputDigits: 0,
 
   updateDisplay: function updateDisplay() {
     var value = this.currentInput || this.result || '0';
@@ -24,6 +25,11 @@ var Calculator = {
   },
 
   appendDigit: function appendDigit(value) {
+    if (this.inputDigits + 1 > this.significantDigits) {
+      return;
+    } else {
+      this.inputDigits++;
+    }
     if (!this.operationToBeApplied) {
       this.result = '';
     }
@@ -48,7 +54,7 @@ var Calculator = {
     }
     switch (value) {
       case '+':
-        this.operationToBeApplied = '+'
+        this.operationToBeApplied = '+';
         break;
       case '-':
         if (this.currentInput || this.result) {
@@ -64,6 +70,9 @@ var Calculator = {
         this.operationToBeApplied = '/';
         break;
     }
+    if (!this.negateCurrentInput) {
+      this.inputDigits = 0;
+    }
     this.updateDisplay();
   },
 
@@ -71,6 +80,7 @@ var Calculator = {
     this.currentInput = '';
     this.operationToBeApplied = '';
     this.result = '';
+    this.inputDigits = 0;
     this.updateDisplay();
   },
 
@@ -101,6 +111,7 @@ var Calculator = {
 
     this.currentInput = '';
     this.operationToBeApplied = '';
+    this.inputDigits = 0;
     this.updateDisplay();
   },
 
