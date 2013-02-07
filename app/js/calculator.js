@@ -7,7 +7,7 @@ var Calculator = {
   currentOperationEle: null,
   result: '',
   currentInput: '',
-  operationToBeApplied: null,
+  operationToBeApplied: '',
   negateCurrentInput: false,
 
   updateDisplay: function updateDisplay() {
@@ -24,6 +24,9 @@ var Calculator = {
   },
 
   appendDigit: function appendDigit(value) {
+    if (!this.operationToBeApplied) {
+      this.result = '';
+    }
     if (this.negateCurrentInput) {
       this.negateCurrentInput = false;
       this.currentInput += '-' + value.toString();
