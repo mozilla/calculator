@@ -1,24 +1,24 @@
 {
   "name": "Calculator",
   "description": "Calculator",
-  "type": "certified",
+  "type": "web",
   "launch_path": "/index.html",
   "developer": {
-    "name": "The Gaia Team",
-    "url": "https://github.com/mozilla-b2g/gaia"
+    "name": "Mozilla",
+    "url": "http://mozilla.org"
   },
   "locales": {
     "ar": {
       "name": "الحاسبة",
-      "description": "Gaia الحاسبة"
+      "description": "الحاسبة"
     },
     "en-US": {
       "name": "Calculator",
-      "description": "Gaia Calculator"
+      "description": "Calculator"
     },
     "fr": {
       "name": "Calculatrice",
-      "description": "Calculatrice Gaia"
+      "description": "Calculatrice"
     },
     "zh-TW": {
       "name": "計算機",
