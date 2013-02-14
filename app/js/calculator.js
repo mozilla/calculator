@@ -5,7 +5,7 @@ var Calculator = {
   display: document.querySelector('#display b'),
   significantDigits: 9,
   currentOperationEle: null,
-  result: '',
+  result: 0,
   currentInput: '',
   operationToBeApplied: '',
   negateCurrentInput: false,
@@ -13,7 +13,7 @@ var Calculator = {
   decimalMark: false,
 
   updateDisplay: function updateDisplay() {
-    var value = this.currentInput || this.result || '0';
+    var value = this.currentInput || this.result.toString();
 
     var infinite = new RegExp((1 / 0) + '', 'g');
     var outval = value.replace(infinite, '∞');
@@ -26,7 +26,8 @@ var Calculator = {
   },
 
   appendDigit: function appendDigit(value) {
-    if (this.inputDigits + 1 > this.significantDigits) {
+    if (this.inputDigits + 1 > this.significantDigits ||
+        this.currentInput === '0' && value === '0') {
       return;
     }
     if (value === '.') {
@@ -44,9 +45,9 @@ var Calculator = {
     }
     if (this.negateCurrentInput) {
       this.negateCurrentInput = false;
-      this.currentInput += '-' + value.toString();
+      this.currentInput += '-' + value;
     } else {
-      this.currentInput += value.toString();
+      this.currentInput += value;
     }
     this.inputDigits++;
     this.updateDisplay();
@@ -90,7 +91,7 @@ var Calculator = {
   backSpace: function backSpace() {
     this.currentInput = '';
     this.operationToBeApplied = '';
-    this.result = '';
+    this.result = 0;
     this.inputDigits = 0;
     this.decimalMark = false;
     this.updateDisplay();
@@ -116,9 +117,9 @@ var Calculator = {
         break;
     }
     if (tempResult > this.maxDisplayableValue) {
-      this.result = tempResult.toExponential(0).toString();
+      this.result = tempResult.toExponential(0);
     } else {
-      this.result = parseFloat(tempResult.toPrecision(this.significantDigits)).toString();
+      this.result = parseFloat(tempResult.toPrecision(this.significantDigits));
     }
 
     this.currentInput = '';
