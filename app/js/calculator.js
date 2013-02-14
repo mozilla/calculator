@@ -10,6 +10,7 @@ var Calculator = {
   operationToBeApplied: '',
   negateCurrentInput: false,
   inputDigits: 0,
+  decimalMark: false,
 
   updateDisplay: function updateDisplay() {
     var value = this.currentInput || this.result || '0';
@@ -27,8 +28,16 @@ var Calculator = {
   appendDigit: function appendDigit(value) {
     if (this.inputDigits + 1 > this.significantDigits) {
       return;
-    } else {
-      this.inputDigits++;
+    }
+    if (value === '.') {
+      if (this.decimalMark) {
+        return;
+      } else {
+        this.decimalMark = true;
+      }
+      if (!this.currentInput) {
+        this.currentInput += '0';
+      }
     }
     if (!this.operationToBeApplied) {
       this.result = '';
@@ -39,11 +48,13 @@ var Calculator = {
     } else {
       this.currentInput += value.toString();
     }
+    this.inputDigits++;
     this.updateDisplay();
   },
 
   appendOperator: function appendOperator(value) {
     this.negateCurrentInput = false;
+    this.decimalMark = false;
     if (this.operationToBeApplied) {
       if (this.currentInput) {
         this.calculate();
@@ -81,6 +92,7 @@ var Calculator = {
     this.operationToBeApplied = '';
     this.result = '';
     this.inputDigits = 0;
+    this.decimalMark = false;
     this.updateDisplay();
   },
 
@@ -112,6 +124,7 @@ var Calculator = {
     this.currentInput = '';
     this.operationToBeApplied = '';
     this.inputDigits = 0;
+    this.decimalMark = false;
     this.updateDisplay();
   },
 
