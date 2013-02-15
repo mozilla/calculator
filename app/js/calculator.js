@@ -8,7 +8,6 @@ var Calculator = {
   result: 0,
   currentInput: '',
   operationToBeApplied: '',
-  negateCurrentInput: false,
   inputDigits: 0,
   decimalMark: false,
 
@@ -43,18 +42,12 @@ var Calculator = {
     if (!this.operationToBeApplied) {
       this.result = '';
     }
-    if (this.negateCurrentInput) {
-      this.negateCurrentInput = false;
-      this.currentInput += '-' + value;
-    } else {
-      this.currentInput += value;
-    }
+    this.currentInput += value;
     this.inputDigits++;
     this.updateDisplay();
   },
 
   appendOperator: function appendOperator(value) {
-    this.negateCurrentInput = false;
     this.decimalMark = false;
     if (this.operationToBeApplied) {
       if (this.currentInput) {
@@ -72,7 +65,7 @@ var Calculator = {
         if (this.currentInput || this.result) {
           this.operationToBeApplied = '-';
         } else {
-          this.negateCurrentInput = true;
+          this.currentInput += '-';
         }
         break;
       case '×':
@@ -82,9 +75,7 @@ var Calculator = {
         this.operationToBeApplied = '/';
         break;
     }
-    if (!this.negateCurrentInput) {
-      this.inputDigits = 0;
-    }
+    this.inputDigits = 0;
     this.updateDisplay();
   },
 
