@@ -12,7 +12,7 @@
       "name": "الحاسبة",
       "description": "الحاسبة"
     },
-    "en-US": {
+    "en": {
       "name": "Calculator",
       "description": "Calculator"
     },
@@ -23,6 +23,14 @@
     "zh-TW": {
       "name": "計算機",
       "description": "計算機"
+    },
+    "pl": {
+      "name": "kalkulator",
+      "description": "kalkulator"
+    },
+    "es": {
+      "name": "calculadora",
+      "description": "calculadora"
     }
   },
   "default_locale": "en-US",
