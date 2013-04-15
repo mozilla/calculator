@@ -5,8 +5,8 @@
   "type": "web",
   "launch_path": "/index.html",
   "developer": {
-    "name": "Mozilla",
-    "url": "http://mozilla.org"
+    "name": "The Gaia Team",
+    "url": "https://github.com/mozilla-b2g/gaia"
   },
   "locales": {
     "ar": {
@@ -32,6 +32,30 @@
     "es": {
       "name": "calculadora",
       "description": "calculadora"
+    },
+    "pt": {
+      "name": "calculadora",
+      "description": "calculadora"
+    },
+    "hr": {
+      "name": "Kalkulator",
+      "description": "Kalkulator"
+    },
+    "cs": {
+      "name": "kalkulačka",
+      "description": "kalkulačka"
+    },
+    "de": {
+      "name": "Taschenrechner",
+      "description": "Taschenrechner"
+    },
+    "hu": {
+      "name": "számológép",
+      "description": "számológép"
+    },
+    "ro": {
+      "name": "calculator",
+      "description": "calculator"
     }
   },
   "default_locale": "en-US",
