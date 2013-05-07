@@ -17,3 +17,7 @@ zip -d app/application.zip garbage.whatever # remove a file from the zip
 ```
 
 Note: updating the zip is unnecessary if you're developing with [make-fxos-install](https://github.com/digitarald/make-fxos-install) (Recommended).
+
+##Test Suite##
+
+[Test Suite](http://nickdesaulniers.github.io/calculator/)
