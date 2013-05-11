@@ -10,12 +10,12 @@
   <!-- MOCK DATA -->
   <script src="mock.js"></script>
   <!-- SCRIPT UNDER TEST -->
+  <!-- change this to test local modifications -->
   <script src="https://raw.github.com/mozilla/calculator/master/app/js/calculator.js" defer></script>
   <!-- TESTS -->
   <script src="tests.js" defer></script>
 </head>
 <body>
-  <h1>Calculator Test Suite</h1>
   <p>
     This suite tests the current code in the
     <a href="https://github.com/mozilla/calculator">Calculator</a>.
@@ -24,6 +24,16 @@
     see what test code is being run.  The code can be read in rough English to
     understand what is being tested.
   </p>
+  <h4>
+    Terminology
+  </h4>
+  <p>
+    Addend + Addend = Sum<br/>
+    Minuend - Subtrahend = Difference<br/>
+    Multiplicand * Multiplier = Product<br/>
+    Dividend / Divisor = quotient<br/>
+  </p>
+  <h1>Calculator Test Suite</h1>
   <div id="mocha"></div>
   <div id="display"><b></b></div>
 </body>

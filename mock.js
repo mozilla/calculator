@@ -17,7 +17,7 @@ $(function () {
     } else if ('+-/*'.split('').indexOf(input) > -1) {
       if (input === '/') {
         input = '÷';
-      } else if (input === 'x') {
+      } else if (input === '*') {
         input = '×';
       }
       return new Evt(input, 'operator');
@@ -28,35 +28,27 @@ $(function () {
     }
   }
 
-  const VALID_INPUT_RE = /[^0-9\+-×÷]/;
   // DSL
   // Factory pattern
   function Start () {
     if (this === window) return new Start();
-    this.input = '';
     Calculator.handleEvent(translate('C'));
   }
 
   Start.prototype = {
     press: function press (input) {
-      this.input += input.toString() + ' ';
       Calculator.handleEvent(translate(input));
       return this;
-    },
-    valueOf: function valueOf () {
-      console.log("VALUEOF CALLED");
-      return this.input.toString();
-    },
-    toString: function toString () {
-      return this.input.toString();
-    },
-    equals: function equals () {
-      Calculator.handleEvent(translate('='));
-      return parseFloat($('#display b').text(), 10);
     },
     clear: function clear () {
       Calculator.handleEvent(translate('C'));
     }
   };
+
+  Object.defineProperty(Start.prototype, 'end', {
+    get: function end () {
+      return $('#display b').text();
+    }
+  });
   window.Start = Start;
 });
