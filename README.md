@@ -16,4 +16,12 @@ zip -f app/applicaton.zip # Rezip modified contents aka freshen
 zip -d app/application.zip garbage.whatever # remove a file from the zip
 ```
 
-Note: updating the zip is unnecessary if you're developing with [make-fxos-install](https://github.com/digitarald/make-fxos-install) (Recommended).
+Note: updating the zip is unnecessary if you're developing with the
+[Firefox OS Simulator](https://developer.mozilla.org/en-US/docs/Tools/Firefox_OS_Simulator)
+(Recommended).  With the simulator, you can
+install as a packaged app by clicking Add Directory, then browsing to the
+manifest.webapp.
+
+##Test Suite##
+
+[Test Suite](http://mozilla.github.io/calculator/)
