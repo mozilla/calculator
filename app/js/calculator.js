@@ -38,12 +38,13 @@ var Calculator = {
       if (!this.currentInput) {
         this.currentInput += '0';
       }
+    } else {
+      ++this.inputDigits;
     }
     if (!this.operationToBeApplied) {
       this.result = '';
     }
     this.currentInput += value;
-    this.inputDigits++;
     this.updateDisplay();
   },
 
