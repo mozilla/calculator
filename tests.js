@@ -83,13 +83,27 @@ $(function () {
                .end.should.equal('0');
       });
 
-      xit('Should be able to add two large positive integers', function () {
-        // 3000000000 + 9000000000
+      it('Should be able to add two large positive integers', function () {
+        // 300000000 + 900000000 = 1.2e+9
         Start().press(3).press(0).press(0).press(0).press(0).press(0).press(0).press(0).press(0)
                .press('+')
                .press(9).press(0).press(0).press(0).press(0).press(0).press(0).press(0).press(0)
                .press('=')
-               .end.should.equal('1.2e9');
+               .end.should.equal('1.2e+9');
+
+        // 900000000 + 900000000 = 1.8e+9
+        Start().press(9).press(0).press(0).press(0).press(0).press(0).press(0).press(0).press(0)
+               .press('+')
+               .press(9).press(0).press(0).press(0).press(0).press(0).press(0).press(0).press(0)
+               .press('=')
+               .end.should.equal('1.8e+9');
+
+        // 999999999 + 1 = 1.0e+9
+        Start().press(9).press(9).press(9).press(9).press(9).press(9).press(9).press(9).press(9)
+               .press('+')
+               .press(1)
+               .press('=')
+               .end.should.equal('1e+9');
       });
 
       it('Should be able to add a negative floating point and a positive ' +
@@ -313,6 +327,25 @@ $(function () {
                .press(2)
                .press('=')
                .end.should.equal('-3.33');
+      });
+
+      it('Should be able to subtract two large integers', function () {
+        // 123456789 - 210987654 = -87530865
+        Start().press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('-')
+               .press(2).press(1).press(0).press(9).press(8).press(7).press(6).press(5).press(4)
+               .press('=')
+               .end.should.equal('-87530865');
+      });
+
+      it('Should be able to subtract two floating point numbers with many ' +
+         'digits', function () {
+        // 7.12345678 - 2.21098765 = 4.91246913
+        Start().press(7).press('.').press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8)
+               .press('-')
+               .press(2).press('.').press(2).press(1).press(0).press(9).press(8).press(7).press(6).press(5)
+               .press('=')
+               .end.should.equal('4.91246913');
       });
     });
 
