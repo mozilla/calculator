@@ -109,7 +109,8 @@ var Calculator = {
         break;
     }
     this.result = parseFloat(tempResult.toPrecision(this.significantDigits));
-    if (tempResult > this.maxDisplayableValue) {
+    if (tempResult >  this.maxDisplayableValue ||
+        tempResult < -this.maxDisplayableValue) {
       this.result = this.result.toExponential();
     }
 
