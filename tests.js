@@ -141,7 +141,7 @@ $(function () {
               .end.should.equal('20');
       });
 
-      it('Shoudl be able to add a positive floating point number to the ' +
+      it('Should be able to add a positive floating point number to the ' +
          'results of a previous operation', function () {
         // 1500 - 2000 = -500 + 0.25 = -499.75
         var result = Start().press(1).press(5).press(0).press(0)
@@ -153,6 +153,34 @@ $(function () {
               .press(0).press('.').press(2).press(5)
               .press('=')
               .end.should.equal('-499.75');
+      });
+
+      it('Should be able to add a floating point number with many decimal ' +
+         'places to a previous result', function () {
+        // 1500 - 2000 = -500 + 1.23456789 = -498.765432
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('+')
+              .press(1).press('.').press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-498.765432');
+      });
+
+      it('Should be able to add a large integer to a previous result',
+      function () {
+        // 1500 - 2000 = -500 + 123456789 = 123456289
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('+')
+              .press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('123456289');
       });
     });
 
@@ -347,6 +375,34 @@ $(function () {
                .press('=')
                .end.should.equal('4.91246913');
       });
+
+      it('Should be able to subtract a large decimal number from the results ' +
+         'of a previous result', function () {
+        // 1500 - 2000 = -500 - 12.3456789 = -512.3456789
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('-')
+              .press(1).press(2).press('.').press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-512.345679');
+      });
+
+      it('Should be able to subtract a large integer from the results of a ' +
+         'previous result', function () {
+        // 1500 - 2000 = -500 - 123456789 = -123457289
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('-')
+              .press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-123457289');
+      });
     });
 
     describe('Multiplication', function () {
@@ -391,7 +447,7 @@ $(function () {
                .end.should.equal('0.161196');
       });
 
-      it('Should be able to multiple a integer multiplicand with zero',
+      it('Should be able to multiply a integer multiplicand with zero',
       function () {
         // 1500 * 0 = 0
         Start().press(1).press(5).press(0).press(0)
@@ -468,6 +524,51 @@ $(function () {
               .press('=')
               .end.should.equal('96');
       });
+      it('Should be able to multiply two many digit floating point numbers',
+      function () {
+        // 1.23456789 * 2.10987654 = 2.60478583
+        Start().press(1).press('.').press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('*')
+               .press(2).press('.').press(1).press(0).press(9).press(8).press(7).press(6).press(5).press(4)
+               .press('=')
+               .end.should.equal('2.60478583');
+      });
+      it('Should be able to multiply two large integers', function () {
+        // 123456789 * 210987654 = 2.60478583e+16
+        Start().press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('*')
+               .press(2).press(1).press(0).press(9).press(8).press(7).press(6).press(5).press(4)
+               .press('=')
+               .end.should.equal('2.60478583e+16');
+      });
+
+      it('Should be able to multiply the result of a previous operation by ' +
+         'large integer', function () {
+        // 1500 - 2000 = -500 * 123456789 = -6.17283945e+10
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('*')
+              .press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-6.17283945e+10');
+      });
+
+      it('Should be able to multiple the result of a previous operation by a ' +
+         'many digit floating point number', function () {
+        // 1500 - 2000 = -500 * 123.456789 = -61728.3945
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('*')
+              .press(1).press(2).press(3).press('.').press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-61728.3945');
+      });
     });
 
     describe('Division', function () {
@@ -542,13 +643,13 @@ $(function () {
                .end.should.equal('3.20204931');
       });
 
-      xit('Should be able to divide two floating point numbers', function () {
-        // 0.234 / 3.123 = 0.07492795
+      it('Should be able to divide two floating point numbers', function () {
+        // 0.234 / 3.123 = 0.0749279539
         Start().press(0).press('.').press(2).press(3).press(4)
                .press('/')
                .press(3).press('.').press(1).press(2).press(3)
                .press('=')
-               .end.should.equal('0.07492795');
+               .end.should.equal('0.0749279539');
       });
 
       it('Should be able to divide the result of a previous operation by a ' +
@@ -600,6 +701,44 @@ $(function () {
         // 6 / 0 = ∞
         Start().press(6).press('/').press(0).press('=').end.should.equal('∞');
       });
+
+      it('Should be able to divide two many digit floating point numbers',
+      function () {
+        // 1.23456789 / 2.10987654 = 0.585137503
+        Start().press(1).press('.').press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('/')
+               .press(2).press('.').press(1).press(0).press(9).press(8).press(7).press(6).press(5).press(4)
+               .press('=')
+               .end.should.equal('0.585137503');
+      });
+
+      xit('Should be able to divide the result of a previous operation by a ' +
+         'many digit floating point number', function () {
+        // 1500 - 2000 = -500 / 1234.56789 = -0.405000004
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('/')
+              .press(1).press(2).press(3).press(4).press('.').press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-0.405000004');
+      });
+
+      xit('Should be able to divide the result of a previous operation by a ' +
+         'large integer', function () {
+        // 1500 - 2000 = -500 / 123456789 = -0.00000405000004
+        var result = Start().press(1).press(5).press(0).press(0)
+                            .press('-')
+                            .press(2).press(0).press(0).press(0)
+                            .press('=');
+        result.end.should.equal('-500');
+        result.press('/')
+              .press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+              .press('=')
+              .end.should.equal('-0.00000405000004');
+      });
     });
 
     describe('Clear', function () {
@@ -645,6 +784,37 @@ $(function () {
         result = result.press('C');
         result.end.should.equal('0');
       });
+
+      it('Should be able to clear after inserting a many digit ' +
+         'floating point number', function () {
+        // 1234.56789 C -> 0
+        Start().press(1).press(2).press(3).press(4).press('.').press(5).press(6).press(7).press(8).press(9)
+               .press('C')
+               .end.should.equal('0');
+      });
+
+      it('Should be able to clear after inserting a negative many digit ' +
+         'floating point number', function () {
+        // -1234.56789 C -> 0
+        Start().press('-').press(1).press(2).press(3).press(4).press('.').press(5).press(6).press(7).press(8).press(9)
+               .press('C')
+               .end.should.equal('0');
+      });
+
+      it('Should be able to clear after inserting a large negative intgeger',
+      function () {
+        // -123456789 C -> 0
+        Start().press('-').press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('C')
+               .end.should.equal('0');
+      });
+
+      it('Should be able to clear after inserting a large integer', function () {
+        // 123456789 C -> 0
+        Start().press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('C')
+               .end.should.equal('0');
+      });
     });
 
     describe('Bad Input', function () {
@@ -664,8 +834,8 @@ $(function () {
       it('Should allow floating point input with multiple digits before and ' +
          'after the decimal mark', function () {
         // 1111.11111 -> 1111.11111
-        //Start().press(1).press(1).press(1).press(1).press('.').press(1).press(1).press(1).press(1).press(1)
-        //     .end.should.equal('1111.11111');
+        Start().press(1).press(1).press(1).press(1).press('.').press(1).press(1).press(1).press(1).press(1)
+             .end.should.equal('1111.11111');
         // 123.567 -> 123.567
         Start().press(1).press(2).press(3).press('.').press(5).press(6).press(7)
                .end.should.equal('123.567');
@@ -675,6 +845,12 @@ $(function () {
          'after the decimal mark', function () {
         // 1.1 -> 1.1
         Start().press(1).press('.').press(1).end.should.equal('1.1');
+      });
+
+      it('Should not count a decimal mark against max input', function () {
+        // 12.3456789 -> 12.3456789
+        Start().press(1).press(2).press('.').press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .end.should.equal('12.3456789');
       });
     });
   });
