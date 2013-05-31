@@ -6,11 +6,20 @@ body, html {
   font-family: MozTT, sans-serif; 
   font-weight: normal;
   font-size: 10px;
+  width: 320px;
 }
 
 body {
   background: #1d2125 url("images/background.png") no-repeat 0 -20px;
-  background-size: 100%;
+}
+
+@media (min-height: 960px) {
+  body {
+    background: #1d2125 url("images/background.png") no-repeat 0 -40px;
+    transform: scale(2);
+    transform-origin: 0 0;
+    background-size: 200%;
+  }
 }
 
 .row {
