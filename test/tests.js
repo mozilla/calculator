@@ -712,7 +712,7 @@ $(function () {
                .end.should.equal('0.585137503');
       });
 
-      xit('Should be able to divide the result of a previous operation by a ' +
+      it('Should be able to divide the result of a previous operation by a ' +
          'many digit floating point number', function () {
         // 1500 - 2000 = -500 / 1234.56789 = -0.405000004
         var result = Start().press(1).press(5).press(0).press(0)
@@ -726,7 +726,7 @@ $(function () {
               .end.should.equal('-0.405000004');
       });
 
-      xit('Should be able to divide the result of a previous operation by a ' +
+      it('Should be able to divide the result of a previous operation by a ' +
          'large integer', function () {
         // 1500 - 2000 = -500 / 123456789 = -0.00000405000004
         var result = Start().press(1).press(5).press(0).press(0)
