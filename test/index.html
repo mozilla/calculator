@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Calculator Automated Test Suite</title>
+  <link rel="stylesheet" href="vendor/mocha.css" type="text/css"/>
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/chai.js"></script>
+  <script src="vendor/mocha.js"></script>
+  <!-- MOCK DATA -->
+  <script src="mock.js"></script>
+  <!-- SCRIPT UNDER TEST -->
+  <!-- change this to test local modifications -->
+  <script src="../app/js/calculator.js" defer></script>
+  <!-- TESTS -->
+  <script src="tests.js" defer></script>
+</head>
+<body>
+  <p>
+    This suite tests the current code in the
+    <a href="https://github.com/mozilla/calculator">Calculator</a>.
+    Any tests that fail will be in red text with a red x and tests that pass
+    will have a green check mark.  You can click on the text for any case to
+    see what test code is being run.  The code can be read in rough English to
+    understand what is being tested.
+  </p>
+  <h4>
+    Terminology
+  </h4>
+  <p>
+    Addend + Addend = Sum<br/>
+    Minuend - Subtrahend = Difference<br/>
+    Multiplicand * Multiplier = Product<br/>
+    Dividend / Divisor = quotient<br/>
+  </p>
+  <h1>Calculator Test Suite</h1>
+  <div id="mocha"></div>
+  <div id="display" hidden><b></b></div>
+</body>
+</html>
