@@ -39,6 +39,9 @@ var Calculator = {
         this.currentInput += '0';
       }
     } else {
+      if (this.currentInput === '0' && value !== '0') {
+        this.currentInput = '';
+      }
       ++this.inputDigits;
     }
     if (!this.operationToBeApplied) {

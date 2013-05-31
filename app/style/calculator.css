@@ -6,7 +6,11 @@ body, html {
   font-family: MozTT, sans-serif; 
   font-weight: normal;
   font-size: 10px;
+}
+
+body {
   background: #1d2125 url("images/background.png") no-repeat 0 -20px;
+  background-size: 100%;
 }
 
 .row {
@@ -73,20 +77,15 @@ input:not(.small) {
 /* Result Display */
 #display {
   color: white;
-
-  margin-left: 8px;
-  margin-top: 8px;
-  margin-bottom: 10px;
-
-  width: calc(100% - 16px);
+  margin: 10px;
   height: 142px;
   line-height: 142px;
 }
 
 #display b {
   transform-origin: right center;
-  position: absolute;
-  right: 16px;
+  float: right;
+  margin: 0 8px;
 
   line-height: 142px;
   font-family: MozTT, sans-serif; 
