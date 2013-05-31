@@ -10,15 +10,15 @@ body, html {
 }
 
 body {
-  background: #1d2125 url("images/background.png") no-repeat 0 -20px;
+  background: #1D2125 url("images/background.png") no-repeat 0 -20px;
 }
 
-@media (min-height: 960px) {
+@media (min-height: 926px) {
   body {
-    background: #1d2125 url("images/background.png") no-repeat 0 -40px;
-    transform: scale(2);
+    background: #1D2125 url("images/background.png") no-repeat 0 -34px;
+    transform: scale(1.7);
     transform-origin: 0 0;
-    background-size: 200%;
+    background-size: 170%;
   }
 }
 
