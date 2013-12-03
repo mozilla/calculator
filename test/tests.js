@@ -691,15 +691,15 @@ $(function () {
               .end.should.equal('1.5');
       });
 
-      it('Should report infinity for division by 0', function () {
-        // 1500 / 0 = ∞
+      it('Should report error for division by 0', function () {
+        // 1500 / 0 = Error
         Start().press(1).press(5).press(0).press(0)
              .press('/')
              .press(0)
              .press('=')
-             .end.should.equal('∞');
-        // 6 / 0 = ∞
-        Start().press(6).press('/').press(0).press('=').end.should.equal('∞');
+             .end.should.equal('Error');
+        // 6 / 0 = Error
+        Start().press(6).press('/').press(0).press('=').end.should.equal('Error');
       });
 
       it('Should be able to divide two many digit floating point numbers',

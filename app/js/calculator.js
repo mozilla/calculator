@@ -15,7 +15,7 @@ var Calculator = {
     var value = this.currentInput || this.result.toString();
 
     var infinite = new RegExp((1 / 0) + '', 'g');
-    var outval = value.replace(infinite, '∞');
+    var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
     this.display.textContent = outval;
 
     var valWidth = this.display.offsetWidth;
@@ -108,7 +108,11 @@ var Calculator = {
         tempResult = result * currentInput;
         break;
       case '/':
-        tempResult = result / currentInput;
+        if (currentInput == 0) {
+            tempResult = NaN;
+        } else {
+            tempResult = result / currentInput;
+        }
         break;
     }
     this.result = parseFloat(tempResult.toPrecision(this.significantDigits));
