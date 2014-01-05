@@ -78,6 +78,9 @@ var Calculator = {
       case '÷':
         this.operationToBeApplied = '/';
         break;
+      default:
+        this.operationToBeApplied = '+';
+        break;
     }
     this.inputDigits = 0;
     this.updateDisplay();
