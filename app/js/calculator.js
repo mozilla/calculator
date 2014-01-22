@@ -3,11 +3,18 @@
 var Calculator = {
 
   display: document.querySelector('#display b'),
+  indicator: document.querySelector('#display span'),
   significantDigits: 9,
+
   currentOperationEle: null,
   result: 0,
+  memory: 0,
+
   currentInput: '',
   operationToBeApplied: '',
+  previousOperation: '',
+  previousInput: '',
+
   inputDigits: 0,
   decimalMark: false,
 
@@ -15,13 +22,25 @@ var Calculator = {
     var value = this.currentInput || this.result.toString();
 
     var infinite = new RegExp((1 / 0) + '', 'g');
-    var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
+    var outval = value.replace(infinite, '∞').replace(NaN, '---');
     this.display.textContent = outval;
+
+    this.updateIndicator(outval === '---' ? 'E' : this.memory != 0 ? 'M' : ' ');
 
     var valWidth = this.display.offsetWidth;
     var screenWidth = this.display.parentNode.offsetWidth;
     var scaleFactor = Math.min(1, (screenWidth - 16) / valWidth);
     this.display.style.MozTransform = 'scale(' + scaleFactor + ')';
+
+  },
+
+  // Valid input: M (memory in use), E (error ocurred), something else deletes indicator
+  updateIndicator: function updateIndicator(ind) {
+    if (ind == 'M' || ind == 'E') {
+      this.indicator.textContent = ind;
+    } else {
+      this.indicator.textContent = '';
+    }
   },
 
   appendDigit: function appendDigit(value) {
@@ -48,6 +67,27 @@ var Calculator = {
       this.result = '';
     }
     this.currentInput += value;
+    this.updateDisplay();
+  },
+
+  // Real backspace behaviour
+  removeDigit: function removeDigit() {
+    if (!this.decimalMark && this.inputDigits < 1 || this.currentInput === '0') {
+      return;
+    }
+
+    this.currentInput = this.currentInput.substr(0, this.currentInput.length - 1);
+    --this.inputDigits;
+
+    if (this.decimalMark && this.currentInput.indexOf('.') === -1) {
+      this.decimalMark = false;
+      ++this.inputDigits;
+    }
+
+    if (!this.currentInput) {
+      this.currentInput += '0';
+    }
+
     this.updateDisplay();
   },
 
@@ -85,7 +125,9 @@ var Calculator = {
 
   backSpace: function backSpace() {
     this.currentInput = '';
+    this.previousInput = '';
     this.operationToBeApplied = '';
+    this.previousOperation = '';
     this.result = 0;
     this.inputDigits = 0;
     this.decimalMark = false;
@@ -128,8 +170,26 @@ var Calculator = {
     this.updateDisplay();
   },
 
+  retrieveMemory: function retrieveMemory() {
+    var value = window.localStorage.getItem('memory') || 0;
+
+    if (value !== 0) {
+      this.memory = value;
+      this.updateIndicator('M');
+    } else {
+      this.memory = 0;
+      this.updateIndicator(' ');
+    }
+  },
+
+  saveMemoryValue: function saveMemoryValue() {
+    window.localStorage.setItem('memory', this.memory);
+    this.retrieveMemory();
+  },
+
   init: function init() {
     document.addEventListener('mousedown', this);
+    this.retrieveMemory();
     this.updateDisplay();
   },
 
@@ -162,14 +222,62 @@ var Calculator = {
         switch (value) {
           case '=':
             if (this.currentInput && this.operationToBeApplied && this.result) {
+              this.previousOperation = this.operationToBeApplied;
+              this.previousInput = this.currentInput;
+
               this.removeCurrentOperationEle();
               this.calculate();
             }
+
+            else if (this.operationToBeApplied) {
+              this.currentInput = this.previousInput = this.result.toString();
+              this.previousOperation = this.operationToBeApplied;
+
+              this.removeCurrentOperationEle();
+              this.calculate();
+            }
+            else if (this.previousOperation) {
+              this.operationToBeApplied = this.previousOperation;
+              this.currentInput = this.previousInput;
+              this.calculate();
+            }
+
             break;
+
+          case '\u232B':
+            this.removeDigit();
+            break;
+
           case 'C':
             this.removeCurrentOperationEle();
             this.backSpace();
             break;
+
+          case 'M+':
+            if (!this.result) {
+              this.result = parseFloat(this.currentInput);
+              this.currentInput = '';
+            }
+            this.memory += this.result;
+            this.saveMemoryValue();
+            break;
+
+          case 'MR':
+            this.retrieveMemory();
+            if (this.result && this.operationToBeApplied) {
+              this.currentInput = this.memory + '';
+            } else {
+              this.result = this.memory;
+            }
+            this.updateDisplay();
+            break;
+        }
+        break;
+
+      case 'indicator':
+        if (target.textContent == 'M') {
+          this.memory = 0;
+          this.saveMemoryValue();
         }
         break;
     }

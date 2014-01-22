@@ -8,11 +8,16 @@
   </head>
 
   <body>
-    <div id="display"><b></b></div>
+    <div id="display">
+      <span data-type="indicator"></span>
+      <b data-type="input"></b>
+    </div>
 
     <div class="row">
-      <input type="button" disabled/>
-      <input type="button" value="C" data-type="command" />
+      <input type="button" class="small" value="M+" id="memadd" data-type="command" />
+      <input type="button" class="small" value="MR" id="memretrieve" data-type="command" />
+      <input type="button" class="small" value="&#9003;" id="backspace" data-type="command" />
+      <input type="button" class="small" value="C" id="clear" data-type="command" />
     </div>
 
     <div class="row">
