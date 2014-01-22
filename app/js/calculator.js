@@ -8,6 +8,7 @@ var Calculator = {
 
   currentOperationEle: null,
   result: 0,
+  localStorage: false,
   memory: 0,
 
   currentInput: '',
@@ -25,6 +26,7 @@ var Calculator = {
     var outval = value.replace(infinite, '∞').replace(NaN, '---');
     this.display.textContent = outval;
 
+    // Update indicator status to show error, memory usage, or nothing
     this.updateIndicator(outval === '---' ? 'E' : this.memory != 0 ? 'M' : ' ');
 
     var valWidth = this.display.offsetWidth;
@@ -36,10 +38,14 @@ var Calculator = {
 
   // Valid input: M (memory in use), E (error ocurred), something else deletes indicator
   updateIndicator: function updateIndicator(ind) {
-    if (ind == 'M' || ind == 'E') {
-      this.indicator.textContent = ind;
-    } else {
-      this.indicator.textContent = '';
+    switch (ind) {
+      case "M":
+      case "E":
+        this.indicator.textContent = ind;
+        break;
+
+      default:
+        this.indicator.textContent = '';
     }
   },
 
@@ -72,7 +78,7 @@ var Calculator = {
 
   // Real backspace behaviour
   removeDigit: function removeDigit() {
-    if (!this.decimalMark && this.inputDigits < 1 || this.currentInput === '0') {
+    if ((!this.decimalMark && this.inputDigits < 1) || this.currentInput === '0') {
       return;
     }
 
@@ -171,20 +177,24 @@ var Calculator = {
   },
 
   retrieveMemory: function retrieveMemory() {
-    var value = window.localStorage.getItem('memory') || 0;
+    var value = parseFloat(window.localStorage.getItem('memory')) || 0;
 
-    if (value !== 0) {
-      this.memory = value;
-      this.updateIndicator('M');
-    } else {
-      this.memory = 0;
-      this.updateIndicator(' ');
+    if (this.localStorage) {
+      if (value !== 0) {
+        this.memory = value;
+        this.updateIndicator('M');
+      } else {
+        this.memory = 0;
+        this.updateIndicator(' ');
+      }
     }
   },
 
   saveMemoryValue: function saveMemoryValue() {
-    window.localStorage.setItem('memory', this.memory);
-    this.retrieveMemory();
+    if (this.localStorage) {
+      window.localStorage.setItem('memory', this.memory + '');
+      this.retrieveMemory();
+    }
   },
 
   init: function init() {
@@ -230,14 +240,17 @@ var Calculator = {
               this.calculate();
             }
 
-            else if (this.operationToBeApplied) {
+            // Issue 13: Press equals to reapply previous operation
+            // Not checking for result here allows keep doing operations even if zero is reached.
+            // Previous operation is cleared when command C is called, so conventional behaviour isn't affected.
+            else if (/*this.result && */this.operationToBeApplied) {
               this.currentInput = this.previousInput = this.result.toString();
               this.previousOperation = this.operationToBeApplied;
 
               this.removeCurrentOperationEle();
               this.calculate();
             }
-            else if (this.previousOperation) {
+            else if (/*this.result && */this.previousOperation) {
               this.operationToBeApplied = this.previousOperation;
               this.currentInput = this.previousInput;
               this.calculate();
@@ -277,6 +290,7 @@ var Calculator = {
 
       case 'indicator':
         if (target.textContent == 'M') {
+          // PENDING: Some feedback to avoid unintentional memory clear
           this.memory = 0;
           this.saveMemoryValue();
         }
