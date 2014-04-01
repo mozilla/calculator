@@ -890,6 +890,12 @@ $(function () {
         Start().press(1).press(2).press('.').press(3).press(4).press(5).press(6).press(7).press(8).press(9)
                .end.should.equal('12.3456789');
       });
+
+      it('Should not allow a double negation', function () {
+        // - - 21 =
+        Start().press('-').press('-').press(2).press(1).press('=')
+               .end.should.equal('-21');
+      });
     });
   });
 
