@@ -150,8 +150,11 @@ var Calculator = {
         this.appendDigit(value);
         break;
       case 'operator':
+        if (value === '-' && this.currentInput === '-') {
+          return;
+        }
         this.removeCurrentOperationEle();
-        if (this.currentInput || this.operationToBeApplied || this.result) {
+        if (this.currentInput || this.result) {
           target.classList.add('active');
         }
         this.currentOperationEle = target;
