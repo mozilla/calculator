@@ -23,8 +23,8 @@ var Calculator = {
     var scaleFactor = Math.min(1, (screenWidth - 16) / valWidth);
 
     // Work around for bug #989403
-    this.display.style.fontSize = 8.25 * scaleFactor + 'rem';
-    //this.display.style.transform = 'scale(' + scaleFactor + ')';)}}
+    this.display.style.fontSize = 6 * scaleFactor + 'rem';
+    //this.display.style.transform = 'scale(' + scaleFactor + ')';
   },
 
   appendDigit: function appendDigit(value) {
