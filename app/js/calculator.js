@@ -3,7 +3,7 @@
 var Calculator = {
 
   display: document.querySelector('#display b'),
-  significantDigits: 6, // 9 bug #989403
+  significantDigits: 9,
   currentOperationEle: null,
   result: 0,
   currentInput: '',
@@ -23,7 +23,7 @@ var Calculator = {
     var scaleFactor = Math.min(1, (screenWidth - 16) / valWidth);
 
     // Work around for bug #989403
-    this.display.style.fontSize = 6 * scaleFactor + 'rem';
+    this.display.style.fontSize = 5.5 * scaleFactor + 'rem';
     //this.display.style.transform = 'scale(' + scaleFactor + ')';
   },
 
