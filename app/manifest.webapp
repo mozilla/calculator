@@ -1,7 +1,7 @@
 {
   "name": "Calculator",
   "description": "Calculator",
-  "version": "1.9",
+  "version": "1.9.1",
   "type": "web",
   "launch_path": "/index.html",
   "developer": {
@@ -56,6 +56,10 @@
     "ro": {
       "name": "Calculator",
       "description": "Calculator"
+    },
+    "el": {
+      "name": "Αριθμ/νή",
+      "description": "Αριθμ/νή"
     }
   },
   "default_locale": "en-US",
