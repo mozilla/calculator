@@ -2,7 +2,7 @@
 
 var Calculator = {
 
-  display: document.querySelector('#display b'),
+  display: document.querySelector('#display div'),
   significantDigits: 9,
   currentOperationEle: null,
   result: 0,
@@ -19,8 +19,8 @@ var Calculator = {
     this.display.textContent = outval;
 
     var valWidth = this.display.offsetWidth;
-    var screenWidth = this.display.parentNode.offsetWidth;
-    var scaleFactor = Math.min(1, (screenWidth - 16) / valWidth);
+    var screenWidth = this.display.parentNode.offsetWidth - 60;
+    var scaleFactor = Math.min(1, screenWidth / valWidth);
     this.display.style.MozTransform = 'scale(' + scaleFactor + ')';
   },
 
@@ -129,7 +129,20 @@ var Calculator = {
   },
 
   init: function init() {
+    this.display.style.lineHeight = + this.display.offsetHeight + "px";
     document.addEventListener('mousedown', this);
+    document.addEventListener('touchstart', function(evt){
+      var target = evt.target;
+      if ((target.dataset.type == "value") || (target.value == "C") || (target.value == "=")) {
+        target.classList.add("active");
+      }
+    });
+    document.addEventListener('touchend', function(evt){
+      var target = evt.target;
+      if ((target.dataset.type == "value") || (target.value == "C") || (target.value == "=")) {
+        target.classList.remove("active");
+      }
+    });
     this.updateDisplay();
   },
 
