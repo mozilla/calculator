@@ -1,43 +1,120 @@
-body, html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  line-height: 100%;
   overflow: hidden;
   font-size: 10px;
-  background-color: #1D2125;
+  font-weight: normal;
+  background-color: #2b2b2b;
 }
 
-.row {
-  padding-left: 2%;
-  padding-right: 2%;
-  margin-bottom: 1%;
+.x-row{
+  width: 32rem;
+  height: 6rem;
+  background-color: #2b2b2b;
   display: block;
-  height: 12.5%;
+}
+
+.y-row{
+  display: inline-block;
+  background-color: #2b2b2b;
+  width: 8rem;
+  height: 24rem;
+  vertical-align: top;
+  margin-left: -3px;
+}
+
+.row-block {
+  display: inline-block;
+  background-color: #272727;
+  vertical-align: top;
+  width: 24rem;
+  height: 24rem;
+}
+
+.row{
+  display: block;
+  width: 100%;
 }
 
 input {
-  -moz-appearance: none;
-  padding: 0;
-  margin: 1%;
-  border: 1px solid #404449;
-  color: white;
-  font-family: MozTT, sans-serif;
-  font-size: 2.06rem;
-  /* not in 1.1 */
-  font-size: 10vh;
-
-  width: 24%;
-  height: 100%;
-
   /* text nodes in the source code affect the layout */
-  margin-right: -5px;
-  background-image: none;
-  box-shadow: inset -15px 10px 10px -12px rgba(255,255,255, 0.5), inset 15px -11px 6px -11px rgba(0,0,0,0.5);
+  margin-right: -2px;
+  background: transparent;
+  border: 0;
+  vertical-align: top;
+  border-radius: 0;
+}
+
+input[disabled] {
+  pointer-events: none;
+}
+
+.row-block .row input{
+  font-size: 3rem;
+  font-weight: 200;
+  color: #e7e7e7;
+  border-top: .1rem solid #191919;
+  border-right: .1rem solid #191919;
 }
 
 input.small {
-  display: inline;
-  background-color: #181B1E;
+  display: inline-block;
+  width: 7.9rem;
+  height: 5.9rem;
+}
+
+.y-row input{
+  display: block;
+  width: 100%;
+  border-top: .1rem solid #191919;
+}
+
+.double-y{
+  width: 7.9rem;
+  height: 12rem;
+  display: block;
+}
+
+.double-x{
+  width: 15.9rem;
+  height: 5.9rem;
+  display: inline-block;
+  line-height: 5.9rem;
+}
+
+input[value="C"]{
+  color: white;
+  font-size: 2.3rem;
+  font-weight: 500;
+  border-right: .1rem solid #191919;
+}
+
+input[value="+"]{
+  background: url(images/icon_plus.png) center no-repeat;
+  color: transparent;
+}
+
+input[value="-"]{
+  background: url(images/icon_minus.png) center no-repeat;
+  color: transparent;
+}
+
+input[value="×"]{
+  background: url(images/icon_multiply.png) center no-repeat;
+  color: transparent;
+}
+
+input[value="÷"]{
+  border-right: .1rem solid #191919;
+  background: url(images/divide.png) center no-repeat;
+  color: transparent;
+}
+
+input[value="="]{
+  background: url(images/icon_equal.png) center no-repeat;
+  color: transparent;
 }
 
 input::-moz-focus-inner {
@@ -46,44 +123,144 @@ input::-moz-focus-inner {
   border: 0
 }
 
-input:not(.small) {
-  width: 48%;
-  background-color: #E7350E;
-}
-
-input[value="="] {
-  background-color: #6DBC20;
-}
-
-input:active, input.active {
-  background-color: #17B7E6;
-}
-
-input[disabled] {
-  pointer-events: none;
-  background-color: #1D2125;
-  border: none;
-  box-shadow: none;
-}
-
+/* Result Display */
 #display {
-  background-color: #32353A;
-  border: 1px solid #464F52;
   color: white;
-  margin: 2%;
-  margin-bottom: 1%;
-  height: 142px;
-  line-height: 142px;
+  background-color: #f97c17;
+  height: 15.6rem;
+  line-height: 15.6rem;
+  width: 32rem;
+  position: relative;
 }
 
-#display b {
+#display div {
   transform-origin: right center;
-  float: right;
-  margin: 0 8px;
-
-  line-height: 142px;
-  font-family: MozTT, sans-serif;
-  font-weight: 300;
-  font-size: 8.25rem;
+  position: absolute;
+  right: 3rem;
+  height: 100%;
+  line-height: 15.6rem;
+  font-weight: 200;
+  font-size: 8.2rem;
 }
 
+@media (min-width: 321px), (min-height: 481px){
+  #display {
+    width: 100%;
+    height: calc(100% / 3);
+  }
+
+  #display div {
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  #panel{
+    width: 100%;
+    height: calc((100% / 3) * 2);
+  }
+
+  .x-row{
+    width: 100%;
+    height: calc(100% / 5);
+  }
+
+  .row-block {
+    width: calc((100% / 4) * 3);
+    height: calc((100% / 5) * 4);
+  }
+
+  .y-row{
+    width: calc(100% / 4);
+    height: calc((100% / 5) * 4);
+  }
+
+  .x-row input.small {
+    width: calc(100% / 4);
+    height: 100%;
+  }
+  
+  .x-row input[value="÷"]{
+    width: calc((100% / 4) - 0.1rem);
+  }
+
+  .y-row input.small {
+    width: 100%;
+    height: calc(100% / 4 );
+  }
+
+  .y-row .double-y{
+    width: 100%;
+    height: calc(100% / 2);
+  }
+
+  .row{
+    height: calc(100% / 4)
+  }
+
+  .row input.small {
+    width: calc((100% / 3) - 0.1rem);
+    height: calc(100% - 0.1rem);
+  }
+
+  .x-row .double-x{
+    width: calc((100% / 2) - 0.1rem);
+    height: 100%;
+    line-height: 100%;
+  }
+
+  .row .double-x{
+    width: calc(((100% / 3) * 2) - 0.1rem);
+    height: 100%;
+    line-height: 100%;
+  }
+}
+
+@media (-moz-device-pixel-ratio: 1.5){
+  input[value="+"]{
+    background: url(images/icon_plus@1.5x.png) center no-repeat;
+  }
+
+  input[value="-"]{
+    background: url(images/icon_minus@1.5x.png) center no-repeat;
+  }
+
+  input[value="×"]{
+    background: url(images/icon_multiply@1.5x.png) center no-repeat;
+  }
+
+  input[value="÷"]{
+    background: url(images/divide@1.5x.png) center no-repeat;
+  }
+
+  input[value="="]{
+    background: url(images/icon_equal@1.5x.png) center no-repeat;
+  }
+}
+
+@media (-moz-device-pixel-ratio: 2){
+  input[value="+"]{
+    background: url(images/icon_plus@2x.png) center no-repeat;
+  }
+
+  input[value="-"]{
+    background: url(images/icon_minus@2x.png) center no-repeat;
+  }
+
+  input[value="×"]{
+    background: url(images/icon_multiply@2x.png) center no-repeat;
+  }
+
+  input[value="÷"]{
+    background: url(images/divide@2x.png) center no-repeat;
+  }
+
+  input[value="="]{
+    background: url(images/icon_equal@2x.png) center no-repeat;
+  }
+}
+
+input:active,
+input.active,
+.active {
+  background-color: #0f0f0f;
+}

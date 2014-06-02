@@ -2,7 +2,7 @@
 
 var Calculator = {
 
-  display: document.querySelector('#display b'),
+  display: document.querySelector('#display div'),
   significantDigits: 9,
   currentOperationEle: null,
   result: 0,
@@ -18,10 +18,12 @@ var Calculator = {
     var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
     this.display.textContent = outval;
 
+    var screenWidth = this.display.parentNode.offsetWidth - 60;
     var valWidth = this.display.offsetWidth;
-    var screenWidth = this.display.parentNode.offsetWidth;
-    var scaleFactor = Math.min(1, (screenWidth - 16) / valWidth);
-    this.display.style.MozTransform = 'scale(' + scaleFactor + ')';
+    var scaleFactor = Math.min(1, screenWidth / valWidth);
+    //this.display.style.MozTransform = 'scale(' + scaleFactor + ')';
+    // Work around for bug #989403
+    this.display.style.fontSize = 5.5 * scaleFactor + 'rem';
   },
 
   appendDigit: function appendDigit(value) {
@@ -53,10 +55,8 @@ var Calculator = {
 
   appendOperator: function appendOperator(value) {
     this.decimalMark = false;
-    if (this.operationToBeApplied) {
-      if (this.currentInput) {
-        this.calculate();
-      }
+    if (this.operationToBeApplied && this.currentInput) {
+      this.calculate();
     } else if (!this.result) {
       this.result = this.currentInput;
       this.currentInput = '';
@@ -70,6 +70,7 @@ var Calculator = {
           this.operationToBeApplied = '-';
         } else {
           this.currentInput += '-';
+          this.updateDisplay();
         }
         break;
       case '×':
@@ -80,7 +81,6 @@ var Calculator = {
         break;
     }
     this.inputDigits = 0;
-    this.updateDisplay();
   },
 
   backSpace: function backSpace() {
@@ -129,7 +129,20 @@ var Calculator = {
   },
 
   init: function init() {
+    this.display.style.lineHeight = + this.display.offsetHeight + "px";
     document.addEventListener('mousedown', this);
+    document.addEventListener('touchstart', function(evt){
+      var target = evt.target;
+      if ((target.dataset.type == "value") || (target.value == "C") || (target.value == "=")) {
+        target.classList.add("active");
+      }
+    });
+    document.addEventListener('touchend', function(evt){
+      var target = evt.target;
+      if ((target.dataset.type == "value") || (target.value == "C") || (target.value == "=")) {
+        target.classList.remove("active");
+      }
+    });
     this.updateDisplay();
   },
 
@@ -149,8 +162,11 @@ var Calculator = {
         this.appendDigit(value);
         break;
       case 'operator':
+        if (value === '-' && this.currentInput === '-') {
+          return;
+        }
         this.removeCurrentOperationEle();
-        if (this.currentInput || this.operationToBeApplied || this.result) {
+        if (this.currentInput || this.result) {
           target.classList.add('active');
         }
         this.currentOperationEle = target;

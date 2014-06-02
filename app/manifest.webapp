@@ -1,7 +1,7 @@
 {
   "name": "Calculator",
   "description": "Calculator",
-  "version": "1.8",
+  "version": "2.0",
   "type": "web",
   "launch_path": "/index.html",
   "developer": {
@@ -56,12 +56,20 @@
     "ro": {
       "name": "Calculator",
       "description": "Calculator"
+    },
+    "el": {
+      "name": "Αριθμ/νή",
+      "description": "Αριθμ/νή"
     }
   },
   "default_locale": "en-US",
   "icons": {
-    "128": "/style/icons/128.png",
-    "60": "/style/icons/60.png"
+    "84": "/style/icons/icon_84.png",
+    "126": "/style/icons/icon_126.png",
+    "142": "/style/icons/icon_142.png",
+    "189": "/style/icons/icon_189.png",
+    "256": "/style/icons/icon_256.png",
+    "284": "/style/icons/icon_284.png"
   },
   "orientation": "portrait-primary"
 }
