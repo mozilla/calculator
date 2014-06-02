@@ -47,7 +47,7 @@ $(function () {
 
   Object.defineProperty(Start.prototype, 'end', {
     get: function end () {
-      return $('#display b').text();
+      return $('#display div').text();
     }
   });
   window.Start = Start;
