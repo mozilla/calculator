@@ -1,3 +1,17 @@
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('fonts/FiraSans-UltraLight.otf');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('fonts/FiraSans-Medium.otf');
+    font-weight: 500;
+    font-style: normal;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,6 +19,7 @@ html, body {
   line-height: 100%;
   overflow: hidden;
   font-size: 10px;
+  font-family: 'Fira Sans';
   font-weight: normal;
   background-color: #2b2b2b;
 }
@@ -93,27 +108,32 @@ input[value="C"]{
 
 input[value="+"]{
   background: url(images/icon_plus.png) center no-repeat;
+  background-size: 1.5rem;
   color: transparent;
 }
 
 input[value="-"]{
   background: url(images/icon_minus.png) center no-repeat;
+  background-size: 1.5rem;
   color: transparent;
 }
 
 input[value="×"]{
   background: url(images/icon_multiply.png) center no-repeat;
+  background-size: 1.5rem;
   color: transparent;
 }
 
 input[value="÷"]{
   border-right: .1rem solid #191919;
   background: url(images/divide.png) center no-repeat;
+  background-size: 1.5rem;
   color: transparent;
 }
 
 input[value="="]{
   background: url(images/icon_equal.png) center no-repeat;
+  background-size: 1.5rem;
   color: transparent;
 }
 
@@ -136,11 +156,12 @@ input::-moz-focus-inner {
 #display div {
   transform-origin: right center;
   position: absolute;
-  right: 3rem;
+  right: 2.5rem;
   height: 100%;
   line-height: 15.6rem;
   font-weight: 200;
   font-size: 8.2rem;
+
 }
 
 @media (min-width: 321px), (min-height: 481px){
@@ -178,7 +199,7 @@ input::-moz-focus-inner {
     width: calc(100% / 4);
     height: 100%;
   }
-  
+
   .x-row input[value="÷"]{
     width: calc((100% / 4) - 0.1rem);
   }
@@ -218,44 +239,54 @@ input::-moz-focus-inner {
 @media (-moz-device-pixel-ratio: 1.5){
   input[value="+"]{
     background: url(images/icon_plus@1.5x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="-"]{
     background: url(images/icon_minus@1.5x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="×"]{
     background: url(images/icon_multiply@1.5x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="÷"]{
     background: url(images/divide@1.5x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="="]{
     background: url(images/icon_equal@1.5x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 }
 
 @media (-moz-device-pixel-ratio: 2){
   input[value="+"]{
     background: url(images/icon_plus@2x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="-"]{
     background: url(images/icon_minus@2x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="×"]{
     background: url(images/icon_multiply@2x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="÷"]{
     background: url(images/divide@2x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 
   input[value="="]{
     background: url(images/icon_equal@2x.png) center no-repeat;
+    background-size: 1.5rem;
   }
 }
 
