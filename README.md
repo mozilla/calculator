@@ -24,4 +24,4 @@ manifest.webapp.
 
 ##Test Suite##
 
-[Test Suite](http://mozilla.github.io/calculator/)
+[Test Suite](http://mozilla.github.io/calculator/test/)
