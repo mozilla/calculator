@@ -556,7 +556,7 @@ $(function () {
               .end.should.equal('-6.17283945e+10');
       });
 
-      it('Should be able to multiple the result of a previous operation by a ' +
+      it('Should be able to multiply the result of a previous operation by a ' +
          'many digit floating point number', function () {
         // 1500 - 2000 = -500 * 123.456789 = -61728.3945
         var result = Start().press(1).press(5).press(0).press(0)
@@ -568,6 +568,13 @@ $(function () {
               .press(1).press(2).press(3).press('.').press(4).press(5).press(6).press(7).press(8).press(9)
               .press('=')
               .end.should.equal('-61728.3945');
+      });
+
+      it('Should be able to result of a previous operation when the previous ' +
+         'result is zero', function () {
+        // 0 * 6 * 6 = 0
+        Start().press(0).press('*').press(6).press('*').press(6).press('=')
+               .end.should.equal('0');
       });
     });
 
@@ -895,6 +902,12 @@ $(function () {
         // - - 21 =
         Start().press('-').press('-').press(2).press(1).press('=')
                .end.should.equal('-21');
+      });
+
+      it('Should allow the maximum input when the first digit is zero', function () {
+        // 0123456789 -> 123456789
+        Start().press(0).press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .end.should.equal('123456789');
       });
     });
   });
