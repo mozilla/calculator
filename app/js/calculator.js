@@ -10,20 +10,36 @@ var Calculator = {
   operationToBeApplied: '',
   inputDigits: 0,
   decimalMark: false,
+  calcDigitWidth: true,
 
   updateDisplay: function updateDisplay() {
     var value = this.currentInput || this.result.toString();
-
     var infinite = new RegExp((1 / 0) + '', 'g');
     var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
     this.display.textContent = outval;
-
-    var screenWidth = this.display.parentNode.offsetWidth - 60;
+    var screenWidth = this.display.parentNode.offsetWidth;
     var valWidth = this.display.offsetWidth;
-    var scaleFactor = Math.min(1, screenWidth / valWidth);
-    //this.display.style.MozTransform = 'scale(' + scaleFactor + ')';
-    // Work around for bug #989403
-    this.display.style.fontSize = 5.5 * scaleFactor + 'rem';
+    if(parseInt(this.display.textContent.length, 10) === 1) {
+      this.display.style.fontSize = "8.2rem";
+    }
+    if(screenWidth - valWidth <= (60 * window.devicePixelRatio)) {
+      if(this.calcDigitWidth){
+        /*
+         * 2.7 is the difference between the initial font size value 8.2 and
+         * the smallest possible font size, 5.5.
+         * 9 is the maximum number of digits.
+         * We look for how many digits we are allowed to add until we reach 9
+         * and then we divide that number by 2.7.
+         * This way we know exactly how much we can decrease in the font size
+         * With every new added digit until we reach the 5.5 value.
+         */
+        window.fontDecreaseValue = parseFloat((9 - this.display.textContent.length) / 2.7);
+        this.calcDigitWidth = false;
+      }
+      var currentFontSize = parseFloat(this.display.style.fontSize);
+      var fontNewValue = currentFontSize - fontDecreaseValue;
+      this.display.style.fontSize = fontNewValue + "rem";
+    }
   },
 
   appendDigit: function appendDigit(value) {
@@ -90,6 +106,7 @@ var Calculator = {
     this.inputDigits = 0;
     this.decimalMark = false;
     this.updateDisplay();
+    this.calcDigitWidth = false;
   },
 
   calculate: function calculate() {
@@ -116,7 +133,7 @@ var Calculator = {
         break;
     }
     this.result = parseFloat(tempResult.toPrecision(this.significantDigits));
-    if (tempResult >  this.maxDisplayableValue ||
+    if (tempResult > this.maxDisplayableValue ||
         tempResult < -this.maxDisplayableValue) {
       this.result = this.result.toExponential();
     }
@@ -129,7 +146,7 @@ var Calculator = {
   },
 
   init: function init() {
-    this.display.style.lineHeight = + this.display.offsetHeight + "px";
+    this.display.style.lineHeight = this.display.offsetHeight + "px";
     document.addEventListener('mousedown', this);
     document.addEventListener('touchstart', function(evt){
       var target = evt.target;
