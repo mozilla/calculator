@@ -47,7 +47,7 @@ var Calculator = {
       ++this.inputDigits;
     }
     if (!this.operationToBeApplied) {
-      this.result = '';
+      this.result = 0;
     }
     this.currentInput += value;
     this.updateDisplay();
@@ -58,7 +58,7 @@ var Calculator = {
     if (this.operationToBeApplied && this.currentInput) {
       this.calculate();
     } else if (!this.result) {
-      this.result = this.currentInput;
+      this.result = parseFloat(this.currentInput);
       this.currentInput = '';
     }
     switch (value) {
@@ -177,7 +177,8 @@ var Calculator = {
       case 'command':
         switch (value) {
           case '=':
-            if (this.currentInput && this.operationToBeApplied && this.result) {
+            if (this.currentInput && this.operationToBeApplied &&
+                typeof this.result === 'number') {
               this.removeCurrentOperationEle();
               this.calculate();
             }
