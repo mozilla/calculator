@@ -43,8 +43,9 @@ var Calculator = {
     } else {
       if (this.currentInput === '0' && value !== '0') {
         this.currentInput = '';
+      } else {
+        ++this.inputDigits;
       }
-      ++this.inputDigits;
     }
     if (!this.operationToBeApplied) {
       this.result = 0;
