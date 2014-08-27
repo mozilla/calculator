@@ -1,7 +1,7 @@
 {
   "name": "Calculator",
   "description": "Calculator",
-  "version": "2.0",
+  "version": "2.0.1",
   "type": "web",
   "launch_path": "/index.html",
   "developer": {
