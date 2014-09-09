@@ -57,6 +57,10 @@
       "name": "Calculator",
       "description": "Calculator"
     },
+    "ru": {
+      "name": "Калькулятор",
+      "description": "Калькулятор"
+    },
     "el": {
       "name": "Αριθμ/νή",
       "description": "Αριθμ/νή"
