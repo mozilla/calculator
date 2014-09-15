@@ -61,6 +61,14 @@
       "name": "Калькулятор",
       "description": "Калькулятор"
     },
+    "sr-Cyrl": {
+      "name": "Калкулатор",
+      "description": "Калкулатор"
+    },
+    "sr-Latn": {
+      "name": "Kalkluator",
+      "description": "Kalkulator"
+    },
     "el": {
       "name": "Αριθμ/νή",
       "description": "Αριθμ/νή"
