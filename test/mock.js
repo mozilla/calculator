@@ -21,7 +21,7 @@ $(function () {
         input = '×';
       }
       return new Evt(input, 'operator');
-    } else if ('C='.split('').indexOf(input) > -1) {
+    } else if ('C='.split('').indexOf(input) > -1 || input === 'DEL') {
       return new Evt(input, 'command');
     } else {
       throw new Error('Bad input to translate: ' + input.toString());
