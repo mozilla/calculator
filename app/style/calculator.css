@@ -178,7 +178,7 @@ input::-moz-focus-inner {
     width: calc(100% / 4);
     height: 100%;
   }
-  
+
   .x-row input[value="÷"]{
     width: calc((100% / 4) - 0.1rem);
   }
@@ -262,5 +262,5 @@ input::-moz-focus-inner {
 input:active,
 input.active,
 .active {
-  background-color: #0f0f0f;
+  background-color: #008EAB;
 }
