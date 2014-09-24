@@ -910,6 +910,28 @@ $(function () {
                .end.should.equal('123456789');
       });
     });
+    describe('Delete last input', function () {
+      it('Should not influence empty input', function () {
+        // 0 -> DEL -> 0
+        Start().press('DEL').end.should.equal('0');
+      });
+
+      it('Should delete multiple numbers when pressed multiple times', function () {
+        // 123 -> DEL -> D -> 1
+        Start().press(1).press(2).press(3).press('DEL').press('DEL').end.should.equal('1');
+      });
+
+      it('Should delete last inputted number', function () {
+        // 123 -> DEL -> 12
+        Start().press(1).press(2).press(3).press('DEL').end.should.equal('12');
+      });
+
+      it('Should delete last inputted number with big numbers', function () {
+        // 123456789 -> DEL -> 12345678
+        Start().press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
+               .press('DEL').end.should.equal('12345678');
+      });
+    });
   });
 
   mocha.run();

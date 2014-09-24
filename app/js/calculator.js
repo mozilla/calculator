@@ -93,6 +93,12 @@ var Calculator = {
     this.updateDisplay();
   },
 
+  removeLastCharacter: function removeLastCharacter() {
+    this.currentInput = this.currentInput.substring(0, this.currentInput.length - 1);
+    this.inputDigits = this.inputDigits - 1;
+    this.updateDisplay();
+  },
+
   calculate: function calculate() {
     var tempResult = 0,
         result = parseFloat(this.result),
@@ -188,6 +194,9 @@ var Calculator = {
             this.removeCurrentOperationEle();
             this.backSpace();
             break;
+          case 'DEL':
+            this.removeCurrentOperationEle();
+            this.removeLastCharacter();
         }
         break;
     }
