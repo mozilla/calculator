@@ -917,7 +917,7 @@ $(function () {
       });
 
       it('Should delete multiple numbers when pressed multiple times', function () {
-        // 123 -> DEL -> D -> 1
+        // 123 -> DEL -> DEL -> 1
         Start().press(1).press(2).press(3).press('DEL').press('DEL').end.should.equal('1');
       });
 
@@ -930,6 +930,12 @@ $(function () {
         // 123456789 -> DEL -> 12345678
         Start().press(1).press(2).press(3).press(4).press(5).press(6).press(7).press(8).press(9)
                .press('DEL').end.should.equal('12345678');
+      });
+
+      it('Should not set an operation as character inputted', function () {
+        // 15 -> - -> DEL -> 15 -> - -> 0
+        Start().press(1).press(5).press('-').press('DEL').press(1).press(5).press('-')
+               .end.should.equal('0');
       });
     });
   });

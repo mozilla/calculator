@@ -67,7 +67,7 @@ var Calculator = {
         this.operationToBeApplied = '+';
         break;
       case '-':
-        if (this.currentInput || this.result) {
+        if (this.currentInput || this.result || this.result === 0) {
           this.operationToBeApplied = '-';
         } else {
           this.currentInput += '-';
@@ -94,7 +94,7 @@ var Calculator = {
   },
 
   removeLastCharacter: function removeLastCharacter() {
-    this.currentInput = this.currentInput.substring(0, this.currentInput.length - 1);
+    this.currentInput = this.currentInput.slice(0, -1);
     this.inputDigits = this.inputDigits - 1;
     this.updateDisplay();
   },
