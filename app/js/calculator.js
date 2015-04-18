@@ -15,7 +15,7 @@ var Calculator = {
     var value = this.currentInput || this.result.toString();
 
     var infinite = new RegExp((1 / 0) + '', 'g');
-    var outval = value.replace(infinite, '?').replace(NaN, 'Error');
+    var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
     this.display.textContent = outval;
 
     var screenWidth = this.display.parentNode.offsetWidth - 60;
