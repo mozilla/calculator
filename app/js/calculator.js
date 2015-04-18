@@ -1,7 +1,7 @@
 'use strict';
 
 var Calculator = {
-
+  //Initial display values
   display: document.querySelector('#display div'),
   significantDigits: 9,
   currentOperationEle: null,
@@ -11,11 +11,11 @@ var Calculator = {
   inputDigits: 0,
   decimalMark: false,
 
-  updateDisplay: function updateDisplay() {
+  updateDisplay: function updateDisplay() {//Updates the display
     var value = this.currentInput || this.result.toString();
 
     var infinite = new RegExp((1 / 0) + '', 'g');
-    var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
+    var outval = value.replace(infinite, '?').replace(NaN, 'Error');
     this.display.textContent = outval;
 
     var screenWidth = this.display.parentNode.offsetWidth - 60;
@@ -26,7 +26,8 @@ var Calculator = {
     this.display.style.fontSize = 5.5 * scaleFactor + 'rem';
   },
 
-  appendDigit: function appendDigit(value) {
+  appendDigit: function appendDigit(value) {//Takes user inputted digits and appends them to
+  											//existing value
     if (this.inputDigits + 1 > this.significantDigits ||
         this.currentInput === '0' && value === '0') {
       return;
@@ -54,7 +55,7 @@ var Calculator = {
     this.updateDisplay();
   },
 
-  appendOperator: function appendOperator(value) {
+  appendOperator: function appendOperator(value) {//Appends operator
     this.decimalMark = false;
     if (this.operationToBeApplied && this.currentInput) {
       this.calculate();
@@ -84,7 +85,7 @@ var Calculator = {
     this.inputDigits = 0;
   },
 
-  backSpace: function backSpace() {
+  backSpace: function backSpace() {//Delete character function
     this.currentInput = '';
     this.operationToBeApplied = '';
     this.result = 0;
@@ -93,7 +94,7 @@ var Calculator = {
     this.updateDisplay();
   },
 
-  calculate: function calculate() {
+  calculate: function calculate() {//Does calculations
     var tempResult = 0,
         result = parseFloat(this.result),
         currentInput = parseFloat(this.currentInput);
