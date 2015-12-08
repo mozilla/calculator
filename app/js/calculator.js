@@ -67,7 +67,7 @@ var Calculator = {
         this.operationToBeApplied = '+';
         break;
       case '-':
-        if (this.currentInput || this.result) {
+        if (this.currentInput || this.result || this.result === 0) {
           this.operationToBeApplied = '-';
         } else {
           this.currentInput += '-';
@@ -90,6 +90,12 @@ var Calculator = {
     this.result = 0;
     this.inputDigits = 0;
     this.decimalMark = false;
+    this.updateDisplay();
+  },
+
+  removeLastCharacter: function removeLastCharacter() {
+    this.currentInput = this.currentInput.slice(0, -1);
+    this.inputDigits = this.inputDigits - 1;
     this.updateDisplay();
   },
 
@@ -191,6 +197,9 @@ var Calculator = {
             this.removeCurrentOperationEle();
             this.backSpace();
             break;
+          case 'DEL':
+            this.removeCurrentOperationEle();
+            this.removeLastCharacter();
         }
         break;
     }
