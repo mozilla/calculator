@@ -12,7 +12,10 @@ var Calculator = {
   decimalMark: false,
 
   updateDisplay: function updateDisplay() {
-    var value = this.currentInput || this.result.toString();
+    var stringResult = (this.result >  this.maxDisplayableValue ||
+        this.result < -this.maxDisplayableValue) ?
+        this.result.toExponential() : this.result.toString();
+    var value = this.currentInput || stringResult;
 
     var infinite = new RegExp((1 / 0) + '', 'g');
     var outval = value.replace(infinite, '∞').replace(NaN, 'Error');
@@ -117,10 +120,7 @@ var Calculator = {
         break;
     }
     this.result = parseFloat(tempResult.toPrecision(this.significantDigits));
-    if (tempResult >  this.maxDisplayableValue ||
-        tempResult < -this.maxDisplayableValue) {
-      this.result = this.result.toExponential();
-    }
+
 
     this.currentInput = '';
     this.operationToBeApplied = '';
